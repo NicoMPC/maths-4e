@@ -126,6 +126,7 @@ THEMES.SB = { nom: 'Quotient de deux relatifs', short: 'Quotient', n: 'signes' }
 THEMES.SC = { nom: 'Plusieurs facteurs', short: 'Plusieurs facteurs', n: 'signes' };
 THEMES.SD = { nom: 'Le piège : + et − contre × et ÷', short: 'Le piège', n: 'signes' };
 THEMES.SE = { nom: 'Priorités et carrés', short: 'Priorités', n: 'signes' };
+THEMES.SF = { nom: 'Avec des nombres décimaux', short: 'Décimaux', n: 'signes' };
 
 const PN = [`Positif`, `Négatif`];
 const H2 = `Méthode en 2 temps : d'abord le signe, ensuite le calcul sans les signes.`;
@@ -287,7 +288,33 @@ const sgEx = [
   corr: [`D'abord le produit : 2 × (−9) = −18.`, `Puis 12 + (−18).`, `Résultat : <b>−6 €</b>. Il te manque 6 €.`] },
 { id: 'SE10', t: 'SE', lvl: 3, type: 'num', q: `Calcule : (−3)<sup>2</sup> − 4 × (−2)`, a: 17, tol: 0,
   hint: `Calcule d'abord le carré et le produit, chacun de son côté. Termine par la soustraction.`,
-  corr: [`Le carré : (−3)<sup>2</sup> = 9. Le produit : 4 × (−2) = −8.`, `Je réécris : 9 − (−8) = 9 + 8.`, `Résultat : <b>17</b>`] }
+  corr: [`Le carré : (−3)<sup>2</sup> = 9. Le produit : 4 × (−2) = −8.`, `Je réécris : 9 − (−8) = 9 + 8.`, `Résultat : <b>17</b>`] },
+
+/* ---- SF : avec des nombres décimaux (même règle, même méthode) ---- */
+{ id: 'SF1', t: 'SF', lvl: 1, type: 'num', q: `Calcule : (−2,5) × 4`, a: -10, tol: 0,
+  hint: `Même méthode qu'avec des entiers. D'abord le signe, puis 2,5 × 4 sans les signes.`,
+  corr: [`Signes différents → le produit est négatif.`, `Sans les signes : 2,5 × 4 = 10.`, `Résultat : <b>−10</b>`] },
+{ id: 'SF2', t: 'SF', lvl: 1, type: 'num', q: `Calcule : (−0,5) × (−6)`, a: 3, tol: 0,
+  hint: `Multiplier par 0,5, c'est prendre la moitié. Et le signe : les deux facteurs ont-ils le même ?`,
+  corr: [`Mêmes signes → le produit est positif.`, `Sans les signes : 0,5 × 6 = 3 (la moitié de 6).`, `Résultat : <b>3</b>`] },
+{ id: 'SF3', t: 'SF', lvl: 1, type: 'num', q: `Calcule : 1,5 × (−4)`, a: -6, tol: 0,
+  hint: `Trouve le signe. Puis calcule 1,5 × 4 : c'est 4 + la moitié de 4.`,
+  corr: [`Signes différents → le produit est négatif.`, `Sans les signes : 1,5 × 4 = 6.`, `Résultat : <b>−6</b>`] },
+{ id: 'SF4', t: 'SF', lvl: 2, type: 'num', q: `Calcule : (−12,8) ÷ 2`, a: -6.4, tol: 0,
+  hint: `La règle des signes marche aussi pour un quotient. Puis prends la moitié de 12,8.`,
+  corr: [`Signes différents → le quotient est négatif.`, `Sans les signes : 12,8 ÷ 2 = 6,4.`, `Résultat : <b>−6,4</b>`] },
+{ id: 'SF5', t: 'SF', lvl: 2, type: 'num', q: `Calcule : (−7,2) ÷ (−9)`, a: 0.8, tol: 0,
+  hint: `Trouve le signe. Puis pense à 72 ÷ 9 : où va la virgule ?`,
+  corr: [`Mêmes signes → le quotient est positif.`, `72 ÷ 9 = 8, donc 7,2 ÷ 9 = 0,8.`, `Résultat : <b>0,8</b>`] },
+{ id: 'SF6', t: 'SF', lvl: 2, type: 'num', q: `Calcule : 2,4 × (−0,5)`, a: -1.2, tol: 0,
+  hint: `Multiplier par 0,5, c'est prendre la moitié. N'oublie pas de chercher le signe d'abord.`,
+  corr: [`Signes différents → le produit est négatif.`, `Sans les signes : 2,4 × 0,5 = 1,2 (la moitié de 2,4).`, `Résultat : <b>−1,2</b>`] },
+{ id: 'SF7', t: 'SF', lvl: 3, type: 'num', q: `Calcule : (−6,3) ÷ (−0,7)`, a: 9, tol: 0,
+  hint: `Trouve le signe. Puis 6,3 ÷ 0,7, c'est comme 63 ÷ 7 : on multiplie les deux nombres par 10.`,
+  corr: [`Mêmes signes → le quotient est positif.`, `6,3 ÷ 0,7 = 63 ÷ 7 = 9.`, `Résultat : <b>9</b>`] },
+{ id: 'SF8', t: 'SF', lvl: 2, type: 'num', q: `Un plongeur descend de 1,5 m chaque seconde. On note sa variation de profondeur par seconde : −1,5 m. Quelle est sa variation de profondeur au bout de 8 secondes ?`, a: -12, tol: 0, unit: 'm',
+  hint: `Écris le calcul comme un produit : le nombre de secondes × la variation par seconde.`,
+  corr: [`Le calcul : 8 × (−1,5).`, `Signes différents → négatif. Sans les signes : 8 × 1,5 = 12.`, `Résultat : <b>−12 m</b>. Il est descendu de 12 m.`] }
 ];
 /* Retour ciblé sur les réponses numériques : le bon nombre avec le mauvais signe. */
 for (const e of sgEx) if (e.type === 'num') e.diag = ({ v }) => (e.a !== 0 && v === -e.a) ? `Le nombre est bon, regarde le signe.` : '';

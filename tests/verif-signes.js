@@ -19,7 +19,8 @@ const want = {
     SB3: (-42) / 6, SB4: (-63) / (-7), SB5: 56 / (-8), SB6: (-72) / (-9), SB8: (-120) / 4, SB9: (-36) / 4, SB10: (-9) * (-4),
     SC3: (-2) * 5 * (-3), SC4: (-4) * (-2) * (-3), SC5: (-1) * (-1) * (-1) * (-1) * (-7), SC6: Math.pow(-2, 3), SC9: 3 * 2 * (-5), SC10: (-10) * (-2) * 5 * (-1) * (-3),
     SD3: (-7) + (-2), SD4: (-7) * (-2), SD5: (-9) + 4, SD7: 5 - (-8), SD8: (-6) + (-5), SD9: (-4) + 7,
-    SE2: 8 + (-2) * 5, SE3: 10 - 3 * (-4), SE5: (-6) * (-6), SE6: -(5 * 5), SE7: (-3 + 7) * (-2), SE8: 50 + 3 * (-20), SE9: 12 + 2 * (-9), SE10: (-3) * (-3) - 4 * (-2)
+    SE2: 8 + (-2) * 5, SE3: 10 - 3 * (-4), SE5: (-6) * (-6), SE6: -(5 * 5), SE7: (-3 + 7) * (-2), SE8: 50 + 3 * (-20), SE9: 12 + 2 * (-9), SE10: (-3) * (-3) - 4 * (-2),
+    SF1: (-2.5) * 4, SF2: (-0.5) * (-6), SF3: 1.5 * (-4), SF4: (-12.8) / 2, SF5: (-7.2) / (-9), SF6: 2.4 * (-0.5), SF7: (-6.3) / (-0.7), SF8: 8 * (-1.5)
 };
 /* QCM « Positif / Négatif » : valeur du calcul de l'énoncé, recalculée. La bonne option doit avoir le bon signe. */
 const signOf = {
@@ -66,9 +67,9 @@ for (const e of ex) {
     } else if (e.type === 'num') {
         const w = want[e.id];
         if (w === undefined) { B('pas de référence ' + e.id); continue; }
-        if (typeof e.a !== 'number' || !Number.isInteger(e.a) || Object.is(e.a, -0)) B('a non entier ' + e.id);
+        if (typeof e.a !== 'number' || (e.t !== 'SF' && !Number.isInteger(e.a)) || Object.is(e.a, -0)) B('a non entier ' + e.id);
         if (e.tol !== 0) B('tol ' + e.id);
-        if (w !== e.a) B(`ECART ${e.id} : attendu ${w}, écrit ${e.a}`);
+        if (Math.abs(w - e.a) > 1e-9) B(`ECART ${e.id} : attendu ${w}, écrit ${e.a}`);
         /* le résultat (signe compris) doit figurer en gras dans la correction, et ne pas figurer dans l'indice */
         const res = String(e.a).replace('-', '−');
         if (!new RegExp(`<b>[^<]*(^|[^\\d−])?${res}(?!\\d)`).test(e.corr.join(' ')) && !e.corr.join(' ').includes(`<b>${res}`)) B('corr sans le résultat en gras ' + e.id);
@@ -83,7 +84,7 @@ for (const e of ex) {
         if (o.vals.length !== e.opts.length || JSON.stringify(good) !== JSON.stringify([].concat(e.a))) B('ECART options ' + e.id);
     }
 }
-for (const k of ['SA', 'SB', 'SC', 'SD', 'SE']) {
+for (const k of ['SA', 'SB', 'SC', 'SD', 'SE', 'SF']) {
     const n = ex.filter(e => e.t === k).length;
     if (!THEMES[k]) B('THEMES ' + k); if (n < 8 || n > 10) B(`thème ${k} : ${n} exercices`);
 }
